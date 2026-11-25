@@ -221,3 +221,11 @@ __marimo__/
 
 # Streamlit
 .streamlit/secrets.toml
+
+# SilentBreak
+data/raw/*
+data/batches/*
+data/quarantine/*
+!data/**/.gitkeep
+*.duckdb
+.env
