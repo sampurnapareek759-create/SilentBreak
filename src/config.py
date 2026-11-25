@@ -15,7 +15,9 @@ ROOT: Path = Path(__file__).resolve().parent.parent
 # Data paths
 RAW_DIR: Path = ROOT / "data" / "raw"
 BATCH_DIR: Path = ROOT / "data" / "batches"
+BATCHES_FAULTY_DIR: Path = ROOT / "data" / "batches_faulty"
 QUARANTINE_DIR: Path = ROOT / "data" / "quarantine"
+GROUND_TRUTH_PATH: Path = ROOT / "data" / "ground_truth.csv"
 
 # Database path
 DB_PATH: Path = ROOT / "silentbreak.duckdb"

@@ -229,3 +229,4 @@ data/quarantine/*
 !data/**/.gitkeep
 *.duckdb
 .env
+data/batches_faulty/*
