@@ -26,6 +26,25 @@ ORDER_ITEM_COLUMNS: list[str] = [
 ]
 
 
+def clean_batch_dir(batch_dir: Path) -> int:
+    """Delete existing Parquet files in the batch directory for reproducible runs.
+
+    Args:
+        batch_dir: Directory containing batch files.
+
+    Returns:
+        Number of files deleted.
+    """
+    if not batch_dir.exists():
+        return 0
+
+    deleted_count = 0
+    for file_path in batch_dir.glob("*.parquet"):
+        file_path.unlink()
+        deleted_count += 1
+    return deleted_count
+
+
 def load_raw_data(
     raw_dir: Path,
 ) -> tuple[pd.DataFrame, pd.DataFrame, pd.DataFrame, pd.DataFrame]:
@@ -47,14 +66,20 @@ def load_raw_data(
 def deduplicate_payments(payments_df: pd.DataFrame) -> pd.DataFrame:
     """Keep only the payment with the highest payment_value for each order.
 
+    Ties are deterministically broken by choosing the lowest payment_sequential
+    using a stable sort (mergesort).
+
     Args:
-        payments_df: Raw payments DataFrame containing order_id and payment_value.
+        payments_df: Raw payments DataFrame containing order_id, payment_value,
+            and payment_sequential.
 
     Returns:
         DataFrame with at most one payment record per order_id.
     """
     sorted_payments = payments_df.sort_values(
-        by="payment_value", ascending=False
+        by=["payment_value", "payment_sequential"],
+        ascending=[False, True],
+        kind="mergesort",
     )
     return sorted_payments.drop_duplicates(subset=["order_id"], keep="first")
 
@@ -74,7 +99,7 @@ def build_order_items_table(
         customers: Customers DataFrame.
 
     Returns:
-        Merged DataFrame containing all specified order item columns.
+        Merged DataFrame containing all specified order item columns with native datetimes.
     """
     # Merge items with orders to get customer_id, order_status, and timestamp
     merged = items.merge(
@@ -88,6 +113,11 @@ def build_order_items_table(
         ],
         on="order_id",
         how="inner",
+    )
+
+    # Convert order_purchase_timestamp to a real datetime column
+    merged["order_purchase_timestamp"] = pd.to_datetime(
+        merged["order_purchase_timestamp"]
     )
 
     # Merge with customers to get customer_state
@@ -128,10 +158,9 @@ def save_daily_batches(
     """
     batch_dir.mkdir(parents=True, exist_ok=True)
 
-    # Convert purchase timestamp to date string (YYYY-MM-DD)
-    timestamps = pd.to_datetime(df["order_purchase_timestamp"])
+    # Extract date strings from the datetime column for grouping
     working_df = df.copy()
-    working_df["batch_date"] = timestamps.dt.strftime("%Y-%m-%d")
+    working_df["batch_date"] = working_df["order_purchase_timestamp"].dt.strftime("%Y-%m-%d")
 
     # Group by date and identify valid batches
     grouped = working_df.groupby("batch_date")
@@ -161,10 +190,14 @@ def save_daily_batches(
 
 def main() -> None:
     """Execute the batch ingestion process."""
+    print(f"Cleaning existing Parquet files in {BATCH_DIR}...")
+    deleted = clean_batch_dir(BATCH_DIR)
+    print(f"Removed {deleted} previous batch file(s).")
+
     print("Loading raw CSV datasets...")
     orders, items, payments, customers = load_raw_data(RAW_DIR)
 
-    print("Deduplicating payments (keeping highest payment per order)...")
+    print("Deduplicating payments (keeping highest payment per order, deterministic tie-breaking)...")
     deduped_payments = deduplicate_payments(payments)
 
     print("Building unified order items table...")
