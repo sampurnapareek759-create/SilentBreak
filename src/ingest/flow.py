@@ -1,13 +1,16 @@
 """Prefect workflow for daily batch ingestion.
 
 Defines the daily_ingest flow and CLI to orchestrate batch discovery,
-loading with retries, and logging.
+pre-load data profiling, resilient loading with retries, and logging.
 """
 
 import argparse
+import pandas as pd
 from prefect import flow, get_run_logger, task
 
+from src.config import active_batch_dir
 from src.ingest.load import load_batch, next_unloaded_date
+from src.profile.profiler import profile_batch
 
 
 @task(name="find_next_date")
@@ -18,6 +21,24 @@ def find_next_date_task() -> str | None:
         Date string ('YYYY-MM-DD') or None if all batches are loaded.
     """
     return next_unloaded_date()
+
+
+@task(name="profile")
+def profile_task(batch_date: str) -> dict:
+    """Read and profile a daily batch Parquet file before database insertion.
+
+    Runs before the load task so structural profile metrics are captured even
+    if the batch is subsequently rejected by the loader.
+
+    Args:
+        batch_date: Target batch date string.
+
+    Returns:
+        Computed profile metrics dictionary.
+    """
+    batch_file = active_batch_dir() / f"{batch_date}.parquet"
+    df = pd.read_parquet(batch_file)
+    return profile_batch(df, batch_date)
 
 
 @task(name="load", retries=2, retry_delay_seconds=1)
@@ -42,7 +63,14 @@ def report_task(batch_date: str, rows_loaded: int) -> None:
         rows_loaded: Number of rows successfully inserted.
     """
     logger = get_run_logger()
-    logger.info(f"Successfully loaded batch {batch_date}: {rows_loaded} rows.")
+    if rows_loaded == 0:
+        logger.warning(
+            f"Batch {batch_date} was rejected or empty (0 rows loaded)."
+        )
+    else:
+        logger.info(
+            f"Successfully loaded batch {batch_date}: {rows_loaded} rows."
+        )
 
 
 @flow(name="daily_ingest")
@@ -58,6 +86,9 @@ def daily_ingest() -> str | None:
     if batch_date is None:
         logger.info("All batches loaded")
         return None
+
+    # Profile runs BEFORE load, capturing metrics even for rejected batches
+    profile_task(batch_date)
 
     rows_loaded = load_task(batch_date)
     report_task(batch_date, rows_loaded)
