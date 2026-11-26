@@ -6,6 +6,7 @@ to benchmark pipeline monitoring and automated healing.
 """
 
 import argparse
+import json
 from pathlib import Path
 from typing import Any, Callable
 import numpy as np
@@ -42,7 +43,8 @@ def rename_column(
 
     broken = df.rename(columns={target_col: new_name})
     details = f"renamed column '{target_col}' to '{new_name}'"
-    return broken, {"column": target_col, "details": details}
+    params = {"old_name": target_col, "new_name": new_name}
+    return broken, {"column": target_col, "details": details, "params": params}
 
 
 def drop_column(
@@ -63,7 +65,8 @@ def drop_column(
 
     broken = df.drop(columns=[target_col])
     details = f"dropped column '{target_col}'"
-    return broken, {"column": target_col, "details": details}
+    params = {"column": target_col}
+    return broken, {"column": target_col, "details": details, "params": params}
 
 
 def null_spike(
@@ -90,7 +93,8 @@ def null_spike(
     broken.loc[null_indices, target_col] = None
 
     details = f"injected {fraction:.1%} nulls into column '{target_col}' ({num_nulls} rows)"
-    return broken, {"column": target_col, "details": details}
+    params = {"fraction": round(fraction, 4), "rows": int(num_nulls)}
+    return broken, {"column": target_col, "details": details, "params": params}
 
 
 def unit_change(
@@ -114,12 +118,15 @@ def unit_change(
 
     if operation == "multiply_100":
         broken[target_col] = broken[target_col] * 100.0
+        factor: float | int = 100
         details = f"multiplied column '{target_col}' by 100"
     else:
         broken[target_col] = broken[target_col] / 1000.0
+        factor = 0.001
         details = f"divided column '{target_col}' by 1000"
 
-    return broken, {"column": target_col, "details": details}
+    params = {"factor": factor}
+    return broken, {"column": target_col, "details": details, "params": params}
 
 
 def duplicate_rows(
@@ -142,7 +149,8 @@ def duplicate_rows(
     broken = pd.concat([df, duplicates], ignore_index=True)
 
     details = f"duplicated {num_dupes} rows ({fraction:.1%})"
-    return broken, {"column": "", "details": details}
+    params = {"fraction": round(fraction, 4), "rows": int(num_dupes)}
+    return broken, {"column": "", "details": details, "params": params}
 
 
 def category_drift(
@@ -169,7 +177,8 @@ def category_drift(
     broken.loc[drift_indices, target_col] = target_value
 
     details = f"overwrote {fraction:.1%} of '{target_col}' with '{target_value}'"
-    return broken, {"column": target_col, "details": details}
+    params = {"value": target_value, "fraction": round(fraction, 4)}
+    return broken, {"column": target_col, "details": details, "params": params}
 
 
 def partial_batch(
@@ -184,14 +193,20 @@ def partial_batch(
     Returns:
         Tuple of (corrupted_df, details_dict).
     """
+    original_rows = len(df)
     fraction = float(rng.uniform(0.05, 0.20))
-    keep_count = max(1, int(len(df) * fraction))
+    keep_count = max(1, int(original_rows * fraction))
 
     kept_indices = rng.choice(df.index, size=keep_count, replace=False)
     broken = df.loc[kept_indices].copy().reset_index(drop=True)
 
-    details = f"truncated batch: kept {keep_count}/{len(df)} rows ({fraction:.1%})"
-    return broken, {"column": "", "details": details}
+    details = f"truncated batch: kept {keep_count}/{original_rows} rows ({fraction:.1%})"
+    params = {
+        "kept_rows": int(keep_count),
+        "original_rows": int(original_rows),
+        "fraction": round(fraction, 4),
+    }
+    return broken, {"column": "", "details": details, "params": params}
 
 
 def type_change(
@@ -211,7 +226,8 @@ def type_change(
     broken[target_col] = broken[target_col].apply(lambda x: f"R$ {float(x):.2f}")
 
     details = f"converted '{target_col}' values to currency text formatted 'R$ X.XX'"
-    return broken, {"column": target_col, "details": details}
+    params = {"from": "float", "to": "text"}
+    return broken, {"column": target_col, "details": details, "params": params}
 
 
 FAULT_REGISTRY: list[tuple[str, Callable[[pd.DataFrame, np.random.Generator], tuple[pd.DataFrame, dict[str, Any]]]]] = [
@@ -286,6 +302,9 @@ def corrupt_batches(
                     "fault_type": fault_type,
                     "column": str(details_dict.get("column", "")),
                     "details": str(details_dict.get("details", "")),
+                    "params": json.dumps(
+                        details_dict.get("params", {}), sort_keys=True
+                    ),
                 }
             )
         else:
@@ -293,7 +312,7 @@ def corrupt_batches(
 
     gt_df = pd.DataFrame(
         ground_truth_records,
-        columns=["batch_date", "fault_type", "column", "details"],
+        columns=["batch_date", "fault_type", "column", "details", "params"],
     )
     gt_df.to_csv(gt_path, index=False)
 

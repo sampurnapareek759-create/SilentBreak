@@ -1,126 +1,126 @@
-batch_date,fault_type,column,details
-2017-03-05,duplicate_rows,,duplicated 26 rows (32.8%)
-2017-03-09,unit_change,price,divided column 'price' by 1000
-2017-03-10,unit_change,payment_value,divided column 'payment_value' by 1000
-2017-03-20,partial_batch,,truncated batch: kept 6/127 rows (5.1%)
-2017-03-22,drop_column,customer_state,dropped column 'customer_state'
-2017-03-31,null_spike,freight_value,injected 40.7% nulls into column 'freight_value' (29 rows)
-2017-04-09,type_change,price,converted 'price' values to currency text formatted 'R$ X.XX'
-2017-04-12,category_drift,payment_type,overwrote 87.4% of 'payment_type' with 'voucher'
-2017-04-16,null_spike,payment_value,injected 51.8% nulls into column 'payment_value' (26 rows)
-2017-04-18,type_change,price,converted 'price' values to currency text formatted 'R$ X.XX'
-2017-04-19,rename_column,freight_value,renamed column 'freight_value' to 'shipping_fee'
-2017-04-21,drop_column,customer_state,dropped column 'customer_state'
-2017-04-24,duplicate_rows,,duplicated 46 rows (34.1%)
-2017-04-25,duplicate_rows,,duplicated 42 rows (34.7%)
-2017-05-01,duplicate_rows,,duplicated 31 rows (24.3%)
-2017-05-09,type_change,price,converted 'price' values to currency text formatted 'R$ X.XX'
-2017-05-11,drop_column,payment_type,dropped column 'payment_type'
-2017-05-20,partial_batch,,truncated batch: kept 5/80 rows (6.3%)
-2017-05-27,type_change,price,converted 'price' values to currency text formatted 'R$ X.XX'
-2017-06-09,drop_column,customer_state,dropped column 'customer_state'
-2017-06-11,partial_batch,,truncated batch: kept 17/126 rows (13.8%)
-2017-06-14,type_change,price,converted 'price' values to currency text formatted 'R$ X.XX'
-2017-06-16,drop_column,customer_state,dropped column 'customer_state'
-2017-06-17,partial_batch,,truncated batch: kept 6/84 rows (8.0%)
-2017-06-20,null_spike,customer_state,injected 32.9% nulls into column 'customer_state' (35 rows)
-2017-06-25,null_spike,freight_value,injected 50.2% nulls into column 'freight_value' (58 rows)
-2017-07-02,category_drift,payment_type,overwrote 85.8% of 'payment_type' with 'voucher'
-2017-07-07,category_drift,customer_state,overwrote 88.7% of 'customer_state' with 'SP'
-2017-07-08,null_spike,price,injected 75.9% nulls into column 'price' (69 rows)
-2017-07-15,category_drift,payment_type,overwrote 85.6% of 'payment_type' with 'voucher'
-2017-07-16,drop_column,freight_value,dropped column 'freight_value'
-2017-07-17,unit_change,price,multiplied column 'price' by 100
-2017-07-18,partial_batch,,truncated batch: kept 24/220 rows (11.2%)
-2017-07-20,drop_column,customer_state,dropped column 'customer_state'
-2017-07-21,null_spike,freight_value,injected 75.8% nulls into column 'freight_value' (99 rows)
-2017-07-30,unit_change,payment_value,divided column 'payment_value' by 1000
-2017-08-07,type_change,price,converted 'price' values to currency text formatted 'R$ X.XX'
-2017-08-13,category_drift,customer_state,overwrote 95.8% of 'customer_state' with 'SP'
-2017-08-15,partial_batch,,truncated batch: kept 12/210 rows (5.7%)
-2017-08-17,duplicate_rows,,duplicated 16 rows (10.0%)
-2017-08-19,drop_column,customer_state,dropped column 'customer_state'
-2017-08-23,drop_column,payment_type,dropped column 'payment_type'
-2017-08-26,null_spike,customer_state,injected 76.5% nulls into column 'customer_state' (75 rows)
-2017-09-01,unit_change,payment_value,multiplied column 'payment_value' by 100
-2017-09-06,unit_change,payment_value,divided column 'payment_value' by 1000
-2017-09-09,unit_change,payment_value,divided column 'payment_value' by 1000
-2017-09-16,unit_change,payment_value,divided column 'payment_value' by 1000
-2017-09-21,type_change,price,converted 'price' values to currency text formatted 'R$ X.XX'
-2017-09-24,duplicate_rows,,duplicated 37 rows (30.0%)
-2017-09-28,type_change,price,converted 'price' values to currency text formatted 'R$ X.XX'
-2017-10-01,duplicate_rows,,duplicated 56 rows (38.9%)
-2017-10-02,duplicate_rows,,duplicated 49 rows (29.6%)
-2017-10-06,rename_column,payment_type,renamed column 'payment_type' to 'payment_method'
-2017-10-07,null_spike,price,injected 44.6% nulls into column 'price' (52 rows)
-2017-10-09,duplicate_rows,,duplicated 37 rows (16.8%)
-2017-10-12,partial_batch,,truncated batch: kept 8/158 rows (5.1%)
-2017-10-15,unit_change,price,multiplied column 'price' by 100
-2017-10-25,type_change,price,converted 'price' values to currency text formatted 'R$ X.XX'
-2017-10-27,category_drift,payment_type,overwrote 76.0% of 'payment_type' with 'voucher'
-2017-10-28,null_spike,price,injected 34.5% nulls into column 'price' (33 rows)
-2017-11-03,duplicate_rows,,duplicated 52 rows (30.8%)
-2017-11-04,type_change,price,converted 'price' values to currency text formatted 'R$ X.XX'
-2017-11-15,unit_change,payment_value,divided column 'payment_value' by 1000
-2017-12-02,partial_batch,,truncated batch: kept 18/235 rows (7.8%)
-2017-12-04,unit_change,price,divided column 'price' by 1000
-2017-12-06,duplicate_rows,,duplicated 116 rows (37.1%)
-2017-12-09,category_drift,customer_state,overwrote 80.3% of 'customer_state' with 'SP'
-2017-12-14,null_spike,customer_state,injected 58.3% nulls into column 'customer_state' (125 rows)
-2017-12-26,unit_change,price,multiplied column 'price' by 100
-2017-12-29,drop_column,customer_state,dropped column 'customer_state'
-2018-01-01,partial_batch,,truncated batch: kept 4/81 rows (6.0%)
-2018-01-02,type_change,price,converted 'price' values to currency text formatted 'R$ X.XX'
-2018-01-03,drop_column,payment_type,dropped column 'payment_type'
-2018-01-08,category_drift,payment_type,overwrote 90.7% of 'payment_type' with 'voucher'
-2018-01-10,drop_column,freight_value,dropped column 'freight_value'
-2018-01-28,category_drift,customer_state,overwrote 95.2% of 'customer_state' with 'SP'
-2018-02-01,type_change,price,converted 'price' values to currency text formatted 'R$ X.XX'
-2018-02-05,type_change,price,converted 'price' values to currency text formatted 'R$ X.XX'
-2018-02-08,partial_batch,,truncated batch: kept 30/254 rows (11.9%)
-2018-02-10,unit_change,price,divided column 'price' by 1000
-2018-02-14,rename_column,payment_type,renamed column 'payment_type' to 'payment_method'
-2018-02-16,duplicate_rows,,duplicated 42 rows (17.5%)
-2018-02-17,drop_column,customer_state,dropped column 'customer_state'
-2018-02-18,partial_batch,,truncated batch: kept 36/234 rows (15.6%)
-2018-02-19,null_spike,payment_value,injected 42.4% nulls into column 'payment_value' (125 rows)
-2018-02-23,unit_change,price,divided column 'price' by 1000
-2018-03-02,duplicate_rows,,duplicated 37 rows (12.5%)
-2018-03-06,rename_column,price,renamed column 'price' to 'item_price'
-2018-03-09,partial_batch,,truncated batch: kept 45/229 rows (19.9%)
-2018-03-10,partial_batch,,truncated batch: kept 19/214 rows (9.3%)
-2018-03-11,rename_column,payment_value,renamed column 'payment_value' to 'total_paid'
-2018-03-15,null_spike,customer_state,injected 47.7% nulls into column 'customer_state' (156 rows)
-2018-03-17,null_spike,payment_value,injected 51.2% nulls into column 'payment_value' (97 rows)
-2018-04-02,duplicate_rows,,duplicated 82 rows (25.0%)
-2018-04-10,drop_column,customer_state,dropped column 'customer_state'
-2018-04-23,partial_batch,,truncated batch: kept 18/329 rows (5.7%)
-2018-04-28,duplicate_rows,,duplicated 37 rows (19.6%)
-2018-04-29,rename_column,payment_type,renamed column 'payment_type' to 'payment_method'
-2018-05-01,unit_change,price,multiplied column 'price' by 100
-2018-05-05,null_spike,freight_value,injected 40.6% nulls into column 'freight_value' (89 rows)
-2018-05-09,null_spike,price,injected 46.3% nulls into column 'price' (181 rows)
-2018-05-10,null_spike,payment_value,injected 38.9% nulls into column 'payment_value' (130 rows)
-2018-05-14,rename_column,payment_type,renamed column 'payment_type' to 'payment_method'
-2018-05-23,unit_change,payment_value,multiplied column 'payment_value' by 100
-2018-05-24,category_drift,customer_state,overwrote 95.1% of 'customer_state' with 'SP'
-2018-05-26,drop_column,customer_state,dropped column 'customer_state'
-2018-05-28,type_change,price,converted 'price' values to currency text formatted 'R$ X.XX'
-2018-05-29,category_drift,payment_type,overwrote 74.6% of 'payment_type' with 'voucher'
-2018-05-30,category_drift,payment_type,overwrote 90.7% of 'payment_type' with 'voucher'
-2018-06-05,category_drift,payment_type,overwrote 88.5% of 'payment_type' with 'voucher'
-2018-06-06,duplicate_rows,,duplicated 56 rows (20.3%)
-2018-06-08,rename_column,payment_type,renamed column 'payment_type' to 'payment_method'
-2018-06-10,rename_column,payment_type,renamed column 'payment_type' to 'payment_method'
-2018-06-20,null_spike,price,injected 54.6% nulls into column 'price' (136 rows)
-2018-06-21,category_drift,payment_type,overwrote 91.5% of 'payment_type' with 'voucher'
-2018-06-25,null_spike,payment_value,injected 32.4% nulls into column 'payment_value' (91 rows)
-2018-07-08,duplicate_rows,,duplicated 56 rows (38.7%)
-2018-07-14,duplicate_rows,,duplicated 43 rows (27.5%)
-2018-07-15,drop_column,customer_state,dropped column 'customer_state'
-2018-07-27,duplicate_rows,,duplicated 34 rows (16.0%)
-2018-07-28,duplicate_rows,,duplicated 33 rows (16.1%)
-2018-07-30,duplicate_rows,,duplicated 50 rows (16.2%)
-2018-08-04,drop_column,freight_value,dropped column 'freight_value'
-2018-08-15,rename_column,payment_type,renamed column 'payment_type' to 'payment_method'
-2018-08-26,null_spike,freight_value,injected 38.8% nulls into column 'freight_value' (31 rows)
+batch_date,fault_type,column,details,params
+2017-03-05,duplicate_rows,,duplicated 26 rows (32.8%),"{""fraction"": 0.3283, ""rows"": 26}"
+2017-03-09,unit_change,price,divided column 'price' by 1000,"{""factor"": 0.001}"
+2017-03-10,unit_change,payment_value,divided column 'payment_value' by 1000,"{""factor"": 0.001}"
+2017-03-20,partial_batch,,truncated batch: kept 6/127 rows (5.1%),"{""fraction"": 0.0511, ""kept_rows"": 6, ""original_rows"": 127}"
+2017-03-22,drop_column,customer_state,dropped column 'customer_state',"{""column"": ""customer_state""}"
+2017-03-31,null_spike,freight_value,injected 40.7% nulls into column 'freight_value' (29 rows),"{""fraction"": 0.4073, ""rows"": 29}"
+2017-04-09,type_change,price,converted 'price' values to currency text formatted 'R$ X.XX',"{""from"": ""float"", ""to"": ""text""}"
+2017-04-12,category_drift,payment_type,overwrote 87.4% of 'payment_type' with 'voucher',"{""fraction"": 0.8738, ""value"": ""voucher""}"
+2017-04-16,null_spike,payment_value,injected 51.8% nulls into column 'payment_value' (26 rows),"{""fraction"": 0.5175, ""rows"": 26}"
+2017-04-18,type_change,price,converted 'price' values to currency text formatted 'R$ X.XX',"{""from"": ""float"", ""to"": ""text""}"
+2017-04-19,rename_column,freight_value,renamed column 'freight_value' to 'shipping_fee',"{""new_name"": ""shipping_fee"", ""old_name"": ""freight_value""}"
+2017-04-21,drop_column,customer_state,dropped column 'customer_state',"{""column"": ""customer_state""}"
+2017-04-24,duplicate_rows,,duplicated 46 rows (34.1%),"{""fraction"": 0.3412, ""rows"": 46}"
+2017-04-25,duplicate_rows,,duplicated 42 rows (34.7%),"{""fraction"": 0.3474, ""rows"": 42}"
+2017-05-01,duplicate_rows,,duplicated 31 rows (24.3%),"{""fraction"": 0.2434, ""rows"": 31}"
+2017-05-09,type_change,price,converted 'price' values to currency text formatted 'R$ X.XX',"{""from"": ""float"", ""to"": ""text""}"
+2017-05-11,drop_column,payment_type,dropped column 'payment_type',"{""column"": ""payment_type""}"
+2017-05-20,partial_batch,,truncated batch: kept 5/80 rows (6.3%),"{""fraction"": 0.0632, ""kept_rows"": 5, ""original_rows"": 80}"
+2017-05-27,type_change,price,converted 'price' values to currency text formatted 'R$ X.XX',"{""from"": ""float"", ""to"": ""text""}"
+2017-06-09,drop_column,customer_state,dropped column 'customer_state',"{""column"": ""customer_state""}"
+2017-06-11,partial_batch,,truncated batch: kept 17/126 rows (13.8%),"{""fraction"": 0.1382, ""kept_rows"": 17, ""original_rows"": 126}"
+2017-06-14,type_change,price,converted 'price' values to currency text formatted 'R$ X.XX',"{""from"": ""float"", ""to"": ""text""}"
+2017-06-16,drop_column,customer_state,dropped column 'customer_state',"{""column"": ""customer_state""}"
+2017-06-17,partial_batch,,truncated batch: kept 6/84 rows (8.0%),"{""fraction"": 0.0797, ""kept_rows"": 6, ""original_rows"": 84}"
+2017-06-20,null_spike,customer_state,injected 32.9% nulls into column 'customer_state' (35 rows),"{""fraction"": 0.3286, ""rows"": 35}"
+2017-06-25,null_spike,freight_value,injected 50.2% nulls into column 'freight_value' (58 rows),"{""fraction"": 0.502, ""rows"": 58}"
+2017-07-02,category_drift,payment_type,overwrote 85.8% of 'payment_type' with 'voucher',"{""fraction"": 0.8575, ""value"": ""voucher""}"
+2017-07-07,category_drift,customer_state,overwrote 88.7% of 'customer_state' with 'SP',"{""fraction"": 0.8866, ""value"": ""SP""}"
+2017-07-08,null_spike,price,injected 75.9% nulls into column 'price' (69 rows),"{""fraction"": 0.7594, ""rows"": 69}"
+2017-07-15,category_drift,payment_type,overwrote 85.6% of 'payment_type' with 'voucher',"{""fraction"": 0.8561, ""value"": ""voucher""}"
+2017-07-16,drop_column,freight_value,dropped column 'freight_value',"{""column"": ""freight_value""}"
+2017-07-17,unit_change,price,multiplied column 'price' by 100,"{""factor"": 100}"
+2017-07-18,partial_batch,,truncated batch: kept 24/220 rows (11.2%),"{""fraction"": 0.112, ""kept_rows"": 24, ""original_rows"": 220}"
+2017-07-20,drop_column,customer_state,dropped column 'customer_state',"{""column"": ""customer_state""}"
+2017-07-21,null_spike,freight_value,injected 75.8% nulls into column 'freight_value' (99 rows),"{""fraction"": 0.7584, ""rows"": 99}"
+2017-07-30,unit_change,payment_value,divided column 'payment_value' by 1000,"{""factor"": 0.001}"
+2017-08-07,type_change,price,converted 'price' values to currency text formatted 'R$ X.XX',"{""from"": ""float"", ""to"": ""text""}"
+2017-08-13,category_drift,customer_state,overwrote 95.8% of 'customer_state' with 'SP',"{""fraction"": 0.9582, ""value"": ""SP""}"
+2017-08-15,partial_batch,,truncated batch: kept 12/210 rows (5.7%),"{""fraction"": 0.0574, ""kept_rows"": 12, ""original_rows"": 210}"
+2017-08-17,duplicate_rows,,duplicated 16 rows (10.0%),"{""fraction"": 0.1003, ""rows"": 16}"
+2017-08-19,drop_column,customer_state,dropped column 'customer_state',"{""column"": ""customer_state""}"
+2017-08-23,drop_column,payment_type,dropped column 'payment_type',"{""column"": ""payment_type""}"
+2017-08-26,null_spike,customer_state,injected 76.5% nulls into column 'customer_state' (75 rows),"{""fraction"": 0.7648, ""rows"": 75}"
+2017-09-01,unit_change,payment_value,multiplied column 'payment_value' by 100,"{""factor"": 100}"
+2017-09-06,unit_change,payment_value,divided column 'payment_value' by 1000,"{""factor"": 0.001}"
+2017-09-09,unit_change,payment_value,divided column 'payment_value' by 1000,"{""factor"": 0.001}"
+2017-09-16,unit_change,payment_value,divided column 'payment_value' by 1000,"{""factor"": 0.001}"
+2017-09-21,type_change,price,converted 'price' values to currency text formatted 'R$ X.XX',"{""from"": ""float"", ""to"": ""text""}"
+2017-09-24,duplicate_rows,,duplicated 37 rows (30.0%),"{""fraction"": 0.3005, ""rows"": 37}"
+2017-09-28,type_change,price,converted 'price' values to currency text formatted 'R$ X.XX',"{""from"": ""float"", ""to"": ""text""}"
+2017-10-01,duplicate_rows,,duplicated 56 rows (38.9%),"{""fraction"": 0.3893, ""rows"": 56}"
+2017-10-02,duplicate_rows,,duplicated 49 rows (29.6%),"{""fraction"": 0.296, ""rows"": 49}"
+2017-10-06,rename_column,payment_type,renamed column 'payment_type' to 'payment_method',"{""new_name"": ""payment_method"", ""old_name"": ""payment_type""}"
+2017-10-07,null_spike,price,injected 44.6% nulls into column 'price' (52 rows),"{""fraction"": 0.4457, ""rows"": 52}"
+2017-10-09,duplicate_rows,,duplicated 37 rows (16.8%),"{""fraction"": 0.1676, ""rows"": 37}"
+2017-10-12,partial_batch,,truncated batch: kept 8/158 rows (5.1%),"{""fraction"": 0.0506, ""kept_rows"": 8, ""original_rows"": 158}"
+2017-10-15,unit_change,price,multiplied column 'price' by 100,"{""factor"": 100}"
+2017-10-25,type_change,price,converted 'price' values to currency text formatted 'R$ X.XX',"{""from"": ""float"", ""to"": ""text""}"
+2017-10-27,category_drift,payment_type,overwrote 76.0% of 'payment_type' with 'voucher',"{""fraction"": 0.7602, ""value"": ""voucher""}"
+2017-10-28,null_spike,price,injected 34.5% nulls into column 'price' (33 rows),"{""fraction"": 0.345, ""rows"": 33}"
+2017-11-03,duplicate_rows,,duplicated 52 rows (30.8%),"{""fraction"": 0.3081, ""rows"": 52}"
+2017-11-04,type_change,price,converted 'price' values to currency text formatted 'R$ X.XX',"{""from"": ""float"", ""to"": ""text""}"
+2017-11-15,unit_change,payment_value,divided column 'payment_value' by 1000,"{""factor"": 0.001}"
+2017-12-02,partial_batch,,truncated batch: kept 18/235 rows (7.8%),"{""fraction"": 0.0783, ""kept_rows"": 18, ""original_rows"": 235}"
+2017-12-04,unit_change,price,divided column 'price' by 1000,"{""factor"": 0.001}"
+2017-12-06,duplicate_rows,,duplicated 116 rows (37.1%),"{""fraction"": 0.3712, ""rows"": 116}"
+2017-12-09,category_drift,customer_state,overwrote 80.3% of 'customer_state' with 'SP',"{""fraction"": 0.8034, ""value"": ""SP""}"
+2017-12-14,null_spike,customer_state,injected 58.3% nulls into column 'customer_state' (125 rows),"{""fraction"": 0.5829, ""rows"": 125}"
+2017-12-26,unit_change,price,multiplied column 'price' by 100,"{""factor"": 100}"
+2017-12-29,drop_column,customer_state,dropped column 'customer_state',"{""column"": ""customer_state""}"
+2018-01-01,partial_batch,,truncated batch: kept 4/81 rows (6.0%),"{""fraction"": 0.06, ""kept_rows"": 4, ""original_rows"": 81}"
+2018-01-02,type_change,price,converted 'price' values to currency text formatted 'R$ X.XX',"{""from"": ""float"", ""to"": ""text""}"
+2018-01-03,drop_column,payment_type,dropped column 'payment_type',"{""column"": ""payment_type""}"
+2018-01-08,category_drift,payment_type,overwrote 90.7% of 'payment_type' with 'voucher',"{""fraction"": 0.9069, ""value"": ""voucher""}"
+2018-01-10,drop_column,freight_value,dropped column 'freight_value',"{""column"": ""freight_value""}"
+2018-01-28,category_drift,customer_state,overwrote 95.2% of 'customer_state' with 'SP',"{""fraction"": 0.9522, ""value"": ""SP""}"
+2018-02-01,type_change,price,converted 'price' values to currency text formatted 'R$ X.XX',"{""from"": ""float"", ""to"": ""text""}"
+2018-02-05,type_change,price,converted 'price' values to currency text formatted 'R$ X.XX',"{""from"": ""float"", ""to"": ""text""}"
+2018-02-08,partial_batch,,truncated batch: kept 30/254 rows (11.9%),"{""fraction"": 0.1194, ""kept_rows"": 30, ""original_rows"": 254}"
+2018-02-10,unit_change,price,divided column 'price' by 1000,"{""factor"": 0.001}"
+2018-02-14,rename_column,payment_type,renamed column 'payment_type' to 'payment_method',"{""new_name"": ""payment_method"", ""old_name"": ""payment_type""}"
+2018-02-16,duplicate_rows,,duplicated 42 rows (17.5%),"{""fraction"": 0.1749, ""rows"": 42}"
+2018-02-17,drop_column,customer_state,dropped column 'customer_state',"{""column"": ""customer_state""}"
+2018-02-18,partial_batch,,truncated batch: kept 36/234 rows (15.6%),"{""fraction"": 0.1563, ""kept_rows"": 36, ""original_rows"": 234}"
+2018-02-19,null_spike,payment_value,injected 42.4% nulls into column 'payment_value' (125 rows),"{""fraction"": 0.424, ""rows"": 125}"
+2018-02-23,unit_change,price,divided column 'price' by 1000,"{""factor"": 0.001}"
+2018-03-02,duplicate_rows,,duplicated 37 rows (12.5%),"{""fraction"": 0.1251, ""rows"": 37}"
+2018-03-06,rename_column,price,renamed column 'price' to 'item_price',"{""new_name"": ""item_price"", ""old_name"": ""price""}"
+2018-03-09,partial_batch,,truncated batch: kept 45/229 rows (19.9%),"{""fraction"": 0.1994, ""kept_rows"": 45, ""original_rows"": 229}"
+2018-03-10,partial_batch,,truncated batch: kept 19/214 rows (9.3%),"{""fraction"": 0.0932, ""kept_rows"": 19, ""original_rows"": 214}"
+2018-03-11,rename_column,payment_value,renamed column 'payment_value' to 'total_paid',"{""new_name"": ""total_paid"", ""old_name"": ""payment_value""}"
+2018-03-15,null_spike,customer_state,injected 47.7% nulls into column 'customer_state' (156 rows),"{""fraction"": 0.4774, ""rows"": 156}"
+2018-03-17,null_spike,payment_value,injected 51.2% nulls into column 'payment_value' (97 rows),"{""fraction"": 0.5122, ""rows"": 97}"
+2018-04-02,duplicate_rows,,duplicated 82 rows (25.0%),"{""fraction"": 0.2495, ""rows"": 82}"
+2018-04-10,drop_column,customer_state,dropped column 'customer_state',"{""column"": ""customer_state""}"
+2018-04-23,partial_batch,,truncated batch: kept 18/329 rows (5.7%),"{""fraction"": 0.0567, ""kept_rows"": 18, ""original_rows"": 329}"
+2018-04-28,duplicate_rows,,duplicated 37 rows (19.6%),"{""fraction"": 0.1962, ""rows"": 37}"
+2018-04-29,rename_column,payment_type,renamed column 'payment_type' to 'payment_method',"{""new_name"": ""payment_method"", ""old_name"": ""payment_type""}"
+2018-05-01,unit_change,price,multiplied column 'price' by 100,"{""factor"": 100}"
+2018-05-05,null_spike,freight_value,injected 40.6% nulls into column 'freight_value' (89 rows),"{""fraction"": 0.4056, ""rows"": 89}"
+2018-05-09,null_spike,price,injected 46.3% nulls into column 'price' (181 rows),"{""fraction"": 0.4635, ""rows"": 181}"
+2018-05-10,null_spike,payment_value,injected 38.9% nulls into column 'payment_value' (130 rows),"{""fraction"": 0.3889, ""rows"": 130}"
+2018-05-14,rename_column,payment_type,renamed column 'payment_type' to 'payment_method',"{""new_name"": ""payment_method"", ""old_name"": ""payment_type""}"
+2018-05-23,unit_change,payment_value,multiplied column 'payment_value' by 100,"{""factor"": 100}"
+2018-05-24,category_drift,customer_state,overwrote 95.1% of 'customer_state' with 'SP',"{""fraction"": 0.9508, ""value"": ""SP""}"
+2018-05-26,drop_column,customer_state,dropped column 'customer_state',"{""column"": ""customer_state""}"
+2018-05-28,type_change,price,converted 'price' values to currency text formatted 'R$ X.XX',"{""from"": ""float"", ""to"": ""text""}"
+2018-05-29,category_drift,payment_type,overwrote 74.6% of 'payment_type' with 'voucher',"{""fraction"": 0.7458, ""value"": ""voucher""}"
+2018-05-30,category_drift,payment_type,overwrote 90.7% of 'payment_type' with 'voucher',"{""fraction"": 0.9075, ""value"": ""voucher""}"
+2018-06-05,category_drift,payment_type,overwrote 88.5% of 'payment_type' with 'voucher',"{""fraction"": 0.8854, ""value"": ""voucher""}"
+2018-06-06,duplicate_rows,,duplicated 56 rows (20.3%),"{""fraction"": 0.2034, ""rows"": 56}"
+2018-06-08,rename_column,payment_type,renamed column 'payment_type' to 'payment_method',"{""new_name"": ""payment_method"", ""old_name"": ""payment_type""}"
+2018-06-10,rename_column,payment_type,renamed column 'payment_type' to 'payment_method',"{""new_name"": ""payment_method"", ""old_name"": ""payment_type""}"
+2018-06-20,null_spike,price,injected 54.6% nulls into column 'price' (136 rows),"{""fraction"": 0.5455, ""rows"": 136}"
+2018-06-21,category_drift,payment_type,overwrote 91.5% of 'payment_type' with 'voucher',"{""fraction"": 0.915, ""value"": ""voucher""}"
+2018-06-25,null_spike,payment_value,injected 32.4% nulls into column 'payment_value' (91 rows),"{""fraction"": 0.3242, ""rows"": 91}"
+2018-07-08,duplicate_rows,,duplicated 56 rows (38.7%),"{""fraction"": 0.3873, ""rows"": 56}"
+2018-07-14,duplicate_rows,,duplicated 43 rows (27.5%),"{""fraction"": 0.2747, ""rows"": 43}"
+2018-07-15,drop_column,customer_state,dropped column 'customer_state',"{""column"": ""customer_state""}"
+2018-07-27,duplicate_rows,,duplicated 34 rows (16.0%),"{""fraction"": 0.1604, ""rows"": 34}"
+2018-07-28,duplicate_rows,,duplicated 33 rows (16.1%),"{""fraction"": 0.1613, ""rows"": 33}"
+2018-07-30,duplicate_rows,,duplicated 50 rows (16.2%),"{""fraction"": 0.1623, ""rows"": 50}"
+2018-08-04,drop_column,freight_value,dropped column 'freight_value',"{""column"": ""freight_value""}"
+2018-08-15,rename_column,payment_type,renamed column 'payment_type' to 'payment_method',"{""new_name"": ""payment_method"", ""old_name"": ""payment_type""}"
+2018-08-26,null_spike,freight_value,injected 38.8% nulls into column 'freight_value' (31 rows),"{""fraction"": 0.388, ""rows"": 31}"

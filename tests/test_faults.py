@@ -1,5 +1,6 @@
 """Unit tests for synthetic fault injection and determinism."""
 
+import json
 from pathlib import Path
 import numpy as np
 import pandas as pd
@@ -34,7 +35,7 @@ def sample_df() -> pd.DataFrame:
 
 
 def test_rename_column(sample_df: pd.DataFrame) -> None:
-    """Test rename_column renames an expected column."""
+    """Test rename_column renames an expected column and records params."""
     rng = np.random.default_rng(0)
     broken, details = rename_column(sample_df, rng)
 
@@ -42,9 +43,13 @@ def test_rename_column(sample_df: pd.DataFrame) -> None:
     assert col not in broken.columns
     assert len(broken) == len(sample_df)
 
+    params = details["params"]
+    assert params["old_name"] == col
+    assert params["new_name"] in broken.columns
+
 
 def test_drop_column(sample_df: pd.DataFrame) -> None:
-    """Test drop_column completely removes one target column."""
+    """Test drop_column completely removes one target column and records params."""
     rng = np.random.default_rng(0)
     broken, details = drop_column(sample_df, rng)
 
@@ -52,9 +57,12 @@ def test_drop_column(sample_df: pd.DataFrame) -> None:
     assert col not in broken.columns
     assert len(broken.columns) == len(sample_df.columns) - 1
 
+    params = details["params"]
+    assert params == {"column": col}
+
 
 def test_null_spike(sample_df: pd.DataFrame) -> None:
-    """Test null_spike introduces 30% to 80% null values in one column."""
+    """Test null_spike introduces 30% to 80% null values and records params."""
     rng = np.random.default_rng(0)
     broken, details = null_spike(sample_df, rng)
 
@@ -63,9 +71,13 @@ def test_null_spike(sample_df: pd.DataFrame) -> None:
     null_pct = null_count / len(sample_df)
     assert 0.30 <= null_pct <= 0.80
 
+    params = details["params"]
+    assert params["rows"] == null_count
+    assert 0.30 <= params["fraction"] <= 0.80
+
 
 def test_unit_change(sample_df: pd.DataFrame) -> None:
-    """Test unit_change scales price or payment_value by 100 or 1/1000."""
+    """Test unit_change scales price or payment_value and records factor in params."""
     rng = np.random.default_rng(0)
     broken, details = unit_change(sample_df, rng)
 
@@ -73,9 +85,12 @@ def test_unit_change(sample_df: pd.DataFrame) -> None:
     ratio = broken[col].iloc[0] / sample_df[col].iloc[0]
     assert np.isclose(ratio, 100.0) or np.isclose(ratio, 0.001)
 
+    params = details["params"]
+    assert params["factor"] in [100, 0.001]
+
 
 def test_duplicate_rows(sample_df: pd.DataFrame) -> None:
-    """Test duplicate_rows adds 10% to 40% duplicate rows."""
+    """Test duplicate_rows adds 10% to 40% duplicate rows and records params."""
     rng = np.random.default_rng(0)
     broken, details = duplicate_rows(sample_df, rng)
 
@@ -83,42 +98,54 @@ def test_duplicate_rows(sample_df: pd.DataFrame) -> None:
     pct = added_rows / len(sample_df)
     assert 0.10 <= pct <= 0.40
 
+    params = details["params"]
+    assert params["rows"] == added_rows
+    assert 0.10 <= params["fraction"] <= 0.40
+
 
 def test_category_drift(sample_df: pd.DataFrame) -> None:
-    """Test category_drift increases prevalence of voucher or SP to 70%-100%."""
+    """Test category_drift increases prevalence of voucher or SP and records params."""
     rng = np.random.default_rng(0)
     broken, details = category_drift(sample_df, rng)
 
     col = details["column"]
-    if col == "payment_type":
-        target = "voucher"
-    else:
-        target = "SP"
+    params = details["params"]
+    target = params["value"]
+    assert target in ["voucher", "SP"]
+    assert 0.70 <= params["fraction"] <= 1.0
 
     target_count = (broken[col] == target).sum()
     assert target_count >= int(0.70 * len(sample_df))
 
 
 def test_partial_batch(sample_df: pd.DataFrame) -> None:
-    """Test partial_batch keeps only 5% to 20% of rows."""
+    """Test partial_batch keeps only 5% to 20% of rows and records params."""
     rng = np.random.default_rng(0)
     broken, details = partial_batch(sample_df, rng)
 
     retention_pct = len(broken) / len(sample_df)
     assert 0.05 <= retention_pct <= 0.20
 
+    params = details["params"]
+    assert params["kept_rows"] == len(broken)
+    assert params["original_rows"] == len(sample_df)
+    assert 0.05 <= params["fraction"] <= 0.20
+
 
 def test_type_change(sample_df: pd.DataFrame) -> None:
-    """Test type_change converts numeric price to currency string."""
+    """Test type_change converts numeric price to currency string and records params."""
     rng = np.random.default_rng(0)
     broken, details = type_change(sample_df, rng)
 
     assert pd.api.types.is_string_dtype(broken["price"])
     assert broken["price"].iloc[0].startswith("R$ ")
 
+    params = details["params"]
+    assert params == {"from": "float", "to": "text"}
+
 
 def test_corrupt_batches_determinism(tmp_path: Path, sample_df: pd.DataFrame) -> None:
-    """Test that corrupt_batches produces identical outputs and ground truth for the same seed."""
+    """Test that corrupt_batches produces identical outputs and valid params for the same seed."""
     batch_dir = tmp_path / "batches"
     batch_dir.mkdir()
 
@@ -157,6 +184,12 @@ def test_corrupt_batches_determinism(tmp_path: Path, sample_df: pd.DataFrame) ->
     # Ground truth files must be identical
     pd.testing.assert_frame_equal(gt1, gt2)
     assert gt_path_1.read_text() == gt_path_2.read_text()
+
+    # Validate that every params field parses as valid JSON
+    assert "params" in gt1.columns
+    for p_str in gt1["params"]:
+        parsed = json.loads(p_str)
+        assert isinstance(parsed, dict)
 
     # Pre-baseline batches must remain clean
     baseline_df = pd.read_parquet(faulty_dir_1 / "2017-01-01.parquet")
